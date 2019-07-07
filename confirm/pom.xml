@@ -2,19 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>rabbitmq</artifactId>
+        <groupId>com.itsu</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.itsu</groupId>
-    <artifactId>rabbitmq</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>workqueue</module>
-        <module>pubsub</module>
-        <module>routing</module>
-        <module>topic</module>
-        <module>confirm</module>
-    </modules>
+    <artifactId>confirm</artifactId>
 
     <dependencies>
         <dependency>
@@ -22,5 +17,13 @@
             <artifactId>amqp-client</artifactId>
             <version>5.6.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.itsu</groupId>
+            <artifactId>rabbitmq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+
 </project>

@@ -1,4 +1,4 @@
-package com.itsu.rabbitmq.routing;
+package com.itsu.rabbitmq.topic;
 
 import com.itsu.rabbitmq.utils.RabbitConstant;
 import com.itsu.rabbitmq.utils.RabbitMQUtils;
@@ -11,22 +11,21 @@ import java.io.IOException;
  * @date 2019/7/7 19:05
  */
 
-public class Sina {
+public class Baidu {
     public static void main(String[] args) throws IOException {
         Connection connection = RabbitMQUtils.getConnection();
         Channel channel = connection.createChannel();
-        channel.queueDeclare(RabbitConstant.QUEUE_SINA, false, false, false, null);
+        channel.queueDeclare(RabbitConstant.QUEUE_BAIDU, false, false, false, null);
 //        queuebind 用于将队列与交换机绑定
 //        参数1：队列名  参数2： 交换机名  参数3：路由key（暂时用不到）
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.guangdong.guangzhou.20991011");
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "ua.cal.la.20991011");
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.guangdong.guangzhou.20991012");
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "ua.cal.la.20991012");
+        channel.queueBind(RabbitConstant.QUEUE_BAIDU, RabbitConstant.EXCHANGE_WEATHER_TOPIC, "*.*.*.20991011");
+        //解除绑定也可通过管理控制台的GUI操作直接unbind
+//        channel.queueUnbind(RabbitConstant.QUEUE_BAIDU, RabbitConstant.EXCHANGE_WEATHER_TOPIC, "*.*.*.20991011");
         channel.basicQos(1);
-        channel.basicConsume(RabbitConstant.QUEUE_SINA, false, new DefaultConsumer(channel) {
+        channel.basicConsume(RabbitConstant.QUEUE_BAIDU, false, new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("新浪收到天气信息：" + new String(body));
+                System.out.println("百度收到天气信息：" + new String(body));
                 channel.basicAck(envelope.getDeliveryTag(), false);
             }
         });

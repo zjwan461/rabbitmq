@@ -6,7 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="confirm" />
         <module name="pubsub" />
+        <module name="topic" />
         <module name="workqueue" />
         <module name="routing" />
       </profile>

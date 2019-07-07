@@ -1,4 +1,4 @@
-package com.itsu.rabbitmq.routing;
+package com.itsu.rabbitmq.confirm;
 
 import com.itsu.rabbitmq.utils.RabbitConstant;
 import com.itsu.rabbitmq.utils.RabbitMQUtils;
@@ -18,10 +18,7 @@ public class Sina {
         channel.queueDeclare(RabbitConstant.QUEUE_SINA, false, false, false, null);
 //        queuebind 用于将队列与交换机绑定
 //        参数1：队列名  参数2： 交换机名  参数3：路由key（暂时用不到）
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.guangdong.guangzhou.20991011");
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "ua.cal.la.20991011");
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.guangdong.guangzhou.20991012");
-        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "ua.cal.la.20991012");
+        channel.queueBind(RabbitConstant.QUEUE_SINA, RabbitConstant.EXCHANGE_WEATHER_TOPIC, "us.#");
         channel.basicQos(1);
         channel.basicConsume(RabbitConstant.QUEUE_SINA, false, new DefaultConsumer(channel) {
             @Override

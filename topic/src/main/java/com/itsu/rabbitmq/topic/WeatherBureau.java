@@ -1,4 +1,4 @@
-package com.itsu.rabbitmq.routing;
+package com.itsu.rabbitmq.topic;
 
 import com.itsu.rabbitmq.utils.RabbitConstant;
 import com.itsu.rabbitmq.utils.RabbitMQUtils;
@@ -24,12 +24,12 @@ public class WeatherBureau {
         area.put("china.hebei.shijiazhuang.20991011", "中国河北石家庄20991011天气数据");
         area.put("china.guangdong.shenzhen.20991011", "中国广东深圳20991011天气数据");
         area.put("china.guangdong.guangzhou.20991011", "中国广东广州20991011天气数据");
-        area.put("ua.cal.la.20991011", "美国加州洛杉矶20991011天气数据");
+        area.put("us.cal.la.20991011", "美国加州洛杉矶20991011天气数据");
 
         area.put("china.hebei.shijiazhuang.20991012", "中国河北石家庄20991012天气数据");
         area.put("china.guangdong.shenzhen.20991012", "中国广东深圳20991012天气数据");
         area.put("china.guangdong.guangzhou.20991012", "中国广东广州20991012天气数据");
-        area.put("ua.cal.la.20991012", "美国加州洛杉矶20991012天气数据");
+        area.put("us.cal.la.20991012", "美国加州洛杉矶20991012天气数据");
 
 
         Connection connection = RabbitMQUtils.getConnection();
@@ -39,7 +39,7 @@ public class WeatherBureau {
         Iterator<Map.Entry<String, String>> iterator = area.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, String> me = iterator.next();
-            channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER_ROUTING, me.getKey(), null, me.getValue().getBytes());
+            channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER_TOPIC, me.getKey(), null, me.getValue().getBytes());
         }
         channel.close();
         connection.close();

@@ -21,7 +21,7 @@ public class WeatherBureau {
         String input = new Scanner(System.in).next();
         Channel channel = connection.createChannel();
 //        在发布/订阅模式下，channel不直接和消息队列打交道，而是通过绑定交换机发布消息
-//        在消费者那一边则需要自己订阅才可以收到消息
+//        在消费者那一边则需要自己订阅消息
         channel.basicPublish(RabbitConstant.EXCHANGE_WEATHER, "", null, input.getBytes());
         channel.close();
         connection.close();

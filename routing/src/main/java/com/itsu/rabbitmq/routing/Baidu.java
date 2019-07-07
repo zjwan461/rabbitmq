@@ -18,7 +18,8 @@ public class Baidu {
         channel.queueDeclare(RabbitConstant.QUEUE_BAIDU, false, false, false, null);
 //        queuebind 用于将队列与交换机绑定
 //        参数1：队列名  参数2： 交换机名  参数3：路由key（暂时用不到）
-        channel.queueBind(RabbitConstant.QUEUE_BAIDU, RabbitConstant.EXCHANGE_WEATHER, "");
+        channel.queueBind(RabbitConstant.QUEUE_BAIDU, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.guangdong.shenzhen.20991011");
+        channel.queueBind(RabbitConstant.QUEUE_BAIDU, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.guangdong.shenzhen.20991012");
         channel.basicQos(1);
         channel.basicConsume(RabbitConstant.QUEUE_BAIDU, false, new DefaultConsumer(channel) {
             @Override
